@@ -1,0 +1,63 @@
+<div class="auth-wrapper">
+
+    <div class="container">
+      <div class="row justify-content-center align-items-center vh-100">
+  
+        <div class="col-lg-8 col-md-10">
+  
+          <div class="card auth-card shadow-lg">
+  
+            <div class="row g-0">
+  
+              <!-- Left Side -->
+              <div class="col-md-6 left-panel d-flex flex-column justify-content-center text-center text-white">
+                
+                <p>Login to continue your account?</p>
+              </div>
+  
+              <!-- Right Side -->
+              <div class="col-md-6 p-4">
+  
+                <h3 class="text-center mb-4">Login</h3>
+  
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                  <!-- global login failure message -->
+                  <div *ngIf="notvalidusernamepasword" class="text-danger mb-3">
+                    Username and password is not valid
+                  </div>
+
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>username</mat-label>
+                    <input matInput formControlName="username" type="text">
+                    <mat-error *ngIf="f.username?.hasError('required')">
+                      Username is required
+                    </mat-error>
+                  </mat-form-field>
+  
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+                    <mat-error *ngIf="f.password?.hasError('required')">
+                      Password is required
+                    </mat-error>
+                  </mat-form-field>
+  
+                  <button mat-raised-button color="primary" class="w-100 login-btn" [disabled]="loginForm.invalid">
+                    Login
+                  </button>
+  
+                </form>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+    </div>
+  
+  </div>
