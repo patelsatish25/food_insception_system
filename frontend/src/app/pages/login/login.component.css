@@ -1,0 +1,65 @@
+.auth-wrapper{
+    height:100vh;
+    background: linear-gradient(135deg,#0F172A,#1E293B);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.auth-card{
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* LEFT PANEL */
+.left-panel{
+    background: linear-gradient(135deg,#4F46E5,#6366F1);
+    padding:40px;
+    color:white;
+}
+
+.left-panel h2{
+    font-weight:700;
+}
+
+/* BUTTON */
+.signup-btn{
+    height:45px;
+    font-size:16px;
+    border-radius:8px;
+    background:#6366F1;
+    border:none;
+    color:white;
+    transition:0.3s;
+}
+
+.signup-btn:hover{
+    background:#4F46E5;
+}
+
+/* LINKS */
+a{
+    text-decoration:none;
+    font-weight:600;
+    color:#6366F1;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* INPUT */
+input{
+    border-radius:8px !important;
+    border:1px solid #E5E7EB !important;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.left-panel{
+    display:none;
+}
+
+}
