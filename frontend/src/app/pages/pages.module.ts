@@ -10,12 +10,14 @@ import { DashboradComponent } from './dashborad/dashborad.component';
 
 import {MatIconModule} from '@angular/material/icon';
 import { pagesRoutingModule } from './pages-routing.module';
-
+import { SessionInfoComponent } from './session-info/session-info.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 @NgModule({
   declarations: [
     LoginComponent,
 
-    DashboradComponent
+    DashboradComponent,
+     SessionInfoComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { pagesRoutingModule } from './pages-routing.module';
     ReactiveFormsModule,
     MatIconModule,
     pagesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxEchartsModule
   ],
  
 })
