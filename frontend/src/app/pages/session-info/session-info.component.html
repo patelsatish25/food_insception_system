@@ -1,0 +1,93 @@
+
+<div class="container-fluid mt-4">
+
+  <!-- TOP FULL WIDTH SECTION -->
+  <div class="row mb-3">
+    <div class="col-12">
+
+      <div class="card shadow-sm p-3 ">
+        <div class="row text-center">
+
+
+          <div class="col">
+            <h3 class="fw-bold">Session ID</h3>
+            <h4>{{foodData[0].food.session.id}}</h4>
+          </div>
+
+          <div class="col">
+            <h3 class="fw-bold">Category</h3>
+            <h4>{{foodData[0].food.food_inspection.category}}</h4>
+          </div>
+
+          <div class="col">
+            <h3 class="fw-bold">Name</h3>
+            <h4>{{foodData[0].food.food_inspection.name}}</h4>
+          </div>
+
+          <div class="col">
+            <h3 class="fw-bold">Date</h3>
+            <h4>{{foodData[0].food.session.date}}</h4>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- CHART + SESSION INFO ROW -->
+  <div class="row">
+
+    <!-- Pie Chart -->
+    <div class="col-md-9">
+
+      <div class="card p-3 shadow-sm">
+
+        <div echarts
+             [options]="chartOption"
+             class="chart-container"
+             style="height:500px">
+        </div>
+
+        <div class="text-center mt-3">
+          <h3 class="fw-bold">Total Count:
+            {{foodData[0].food.food_inspection.total_count}}
+          </h3>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Session Info -->
+    <div class="col-md-3">
+
+      <div class="card p-3 shadow-sm">
+
+        <h3 class="mb-3 fw-bold">Session Info</h3>
+
+        <hr/>
+
+         <div class="card p-3 shadow-sm mt-3">
+        <p><b>Start Time:</b> {{foodData[0].food.session.start_time}}</p>
+         </div>
+
+         <div class="card p-3 shadow-sm mt-3">
+          <p><b>End Time:</b> {{foodData[0].food.session.end_time}}</p>
+         </div>
+        
+
+        <div class="card p-3 shadow-sm mt-3">
+        <p><b>Total Time:</b>
+          {{foodData[0].food.session.total_time_seconds}} sec
+        </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
