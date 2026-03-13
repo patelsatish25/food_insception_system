@@ -1,0 +1,71 @@
+<div class="dashboard-container">
+
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+
+    <app-header></app-header>
+
+    <div class="content-area">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+
+        <h2>Past Inspection Reports</h2>
+
+        <div class="filter-section">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Filter by Date</mat-label>
+            <input matInput [matDatepicker]="picker"
+                   (dateChange)="filterByDate($event)">
+            <mat-datepicker-toggle matSuffix
+                                   [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+
+
+      <!-- SESSION CARDS -->
+      <div class="report-grid">
+
+        <mat-card class="report-card"
+                  *ngFor="let session of filteredSessions">
+
+          <div class="session-header">
+
+            <h3>Session #{{session.id}}</h3>
+
+            <span class="session-date">
+              {{session.date}}
+            </span>
+
+          </div>
+
+          <p><strong>Total Foods:</strong> {{session.totalFoods}}</p>
+
+          <p><strong>Categories:</strong> {{session.categories.join(', ')}}</p>
+
+          <p><strong>Duration:</strong> {{session.duration}}</p>
+
+          <button mat-raised-button
+                  color="primary"
+                  [routerLink]="['/session-analysis', session.id]">
+
+            View Full Analysis
+
+          </button>
+
+        </mat-card>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

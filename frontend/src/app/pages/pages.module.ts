@@ -9,13 +9,19 @@ import { SessionInfoComponent } from './session-info/session-info.component';
 import { MatrialModule } from '../matrial/matrial.module';
 import { pagesRoutingModule } from './pages-routing.module';
 import { ComponenetsModule } from '../componenets/componenets.module';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { FoodsComponent } from './foods/foods.component';
+import { PastReportsComponent } from './past-reports/past-reports.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
 
     DashboradComponent,
-     SessionInfoComponent
+     SessionInfoComponent,
+     AnalyticsComponent,
+     FoodsComponent,
+     PastReportsComponent
   ],
   imports: [
     CommonModule,
