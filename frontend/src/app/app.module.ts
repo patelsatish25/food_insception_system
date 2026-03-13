@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { PagesModule } from './pages/pages.module';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { MatrialModule } from './matrial/matrial.module';
 
 
 @NgModule({
@@ -20,9 +21,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     BrowserAnimationsModule,
     HttpClientModule,
     PagesModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
-    })
+    MatrialModule
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
