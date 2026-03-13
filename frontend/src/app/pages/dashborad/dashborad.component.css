@@ -42,11 +42,15 @@
     
     /* Main */
     
-    .main-content{
-    flex:1;
-    background:#f4f6f9;
-    }
-    
+   .main-content{
+  margin-left: 240px;   /* space for sidebar */
+  margin-top: 60px;     /* space for topbar */
+
+  padding: 20px;
+  background: #f4f6fb;
+
+  min-height: 100vh;
+}
     /* Topbar */
     
     .topbar{

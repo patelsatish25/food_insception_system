@@ -1,0 +1,109 @@
+/* Page header */
+
+.page-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.page-header h2{
+font-weight:600;
+}
+
+/* Search */
+
+.search-box{
+display:flex;
+align-items:center;
+gap:10px;
+background:white;
+padding:8px 14px;
+border-radius:8px;
+box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.search-box input{
+border:none;
+outline:none;
+}
+
+/* Table card */
+
+.table-card{
+padding:20px;
+border-radius:12px;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* Table */
+
+.modern-table{
+width:100%;
+}
+
+/* Header */
+
+th{
+font-weight:600;
+color:#666;
+}
+
+/* Row hover */
+
+tr:hover{
+background:#f8f9ff;
+}
+
+/* Food name */
+
+.food-name{
+font-weight:500;
+}
+
+/* Category */
+
+.category{
+background:#eef2ff;
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+}
+
+/* Good count */
+
+.good-count{
+color:#2ecc71;
+font-weight:600;
+}
+
+/* Bad count */
+
+.bad-count{
+color:#e74c3c;
+font-weight:600;
+}
+
+/* Status badge */
+
+.status{
+padding:4px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:500;
+}
+
+.status.good{
+background:#d4edda;
+color:#155724;
+}
+
+.status.risk{
+background:#f8d7da;
+color:#721c24;
+}
+.main-content{
+  margin-left:240px;              /* sidebar width */
+  width:calc(100% - 240px);       /* remaining width */
+  min-height:100vh;
+}

@@ -10,9 +10,11 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { MatrialModule } from './matrial/matrial.module';
 
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    
 
   ],
   imports: [
