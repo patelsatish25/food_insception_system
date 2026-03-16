@@ -12,6 +12,7 @@ import { ComponenetsModule } from '../componenets/componenets.module';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { FoodsComponent } from './foods/foods.component';
 import { PastReportsComponent } from './past-reports/past-reports.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PastReportsComponent } from './past-reports/past-reports.component';
      SessionInfoComponent,
      AnalyticsComponent,
      FoodsComponent,
-     PastReportsComponent
+     PastReportsComponent,
+     UsersComponent
   ],
   imports: [
     CommonModule,

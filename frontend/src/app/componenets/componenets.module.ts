@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MatrialModule } from '../matrial/matrial.module';
 import { HeaderComponent } from './header/header.component';
+import { RouterModule } from '@angular/router';
+import { SessionAnalysisComponent } from './session-analysis/session-analysis.component';
+
 
 
 
@@ -13,15 +16,17 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     SidebarComponent,
     HeaderComponent,
-  
+    SessionAnalysisComponent
    
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatrialModule
   ],
   exports:[SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    SessionAnalysisComponent
   ]
 })
 export class ComponenetsModule { }
