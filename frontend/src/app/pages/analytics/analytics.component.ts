@@ -1,108 +1,200 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as echarts from 'echarts';
+import { FoodsService } from 'src/app/services/foods.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
-  selector: 'app-analytics',
-  templateUrl: './analytics.component.html',
-  styleUrls: ['./analytics.component.css']
+selector:'app-analytics',
+templateUrl:'./analytics.component.html',
+styleUrls:['./analytics.component.css']
 })
-export class AnalyticsComponent implements AfterViewInit {
 
-  stats = {
-    totalSessions: 45,
-    totalFood: 1200,
-    goodFood: 1000,
-    badFood: 200
-  };
+export class AnalyticsComponent implements OnInit,AfterViewInit{
 
-  ngAfterViewInit() {
-    this.initPieChart();
-    this.initBarChart();
-    this.initLineChart();
-  }
+constructor(
+private api:FoodsService,
+private socket:SocketService
+){}
 
-  initPieChart() {
+stats:any={};
 
-    const chart = echarts.init(document.getElementById('pieChart')!);
+/* chart instances */
 
-    chart.setOption({
+pieChart:any;
+foodChart:any;
+lineChart:any;
 
-      tooltip: { trigger: 'item' },
 
-      color: ['#4f46e5', '#f97316'],
 
-      series: [{
-        type: 'pie',
-        radius: '65%',
-        data: [
-          { value: 1000, name: 'Good Food' },
-          { value: 200, name: 'Bad Food' }
-        ]
-      }]
-    });
+/* INIT SOCKET + FIRST API */
 
-  }
+ngOnInit(){
 
-  initBarChart() {
+this.loadAnalytics();
 
-    const chart = echarts.init(document.getElementById('barChart')!);
+/* SOCKET LISTENER */
 
-    chart.setOption({
+this.socket.listen("new-session")
+.subscribe(()=>{
 
-      xAxis: {
-        type: 'category',
-        data: ['Fruit', 'Vegetable', 'Fast Food']
-      },
+console.log("New session detected");
 
-      yAxis: {
-        type: 'value'
-      },
+/* RECALL API */
 
-      series: [{
-        data: [300, 200, 150],
-        type: 'bar',
+console.log("Reloading analytics...");
+this.loadAnalytics();
 
-        itemStyle: {
-          color: '#5a67ff',
-          borderRadius: [6,6,0,0]
-        }
-      }]
-    });
+});
 
-  }
+}
 
-  initLineChart() {
 
-    const chart = echarts.init(document.getElementById('lineChart')!);
 
-    chart.setOption({
+/* CREATE CHARTS ONLY ONCE */
 
-      xAxis: {
-        type: 'category',
-        data: ['Mon','Tue','Wed','Thu','Fri']
-      },
+ngAfterViewInit(){
 
-      yAxis: {
-        type: 'value'
-      },
+this.pieChart = echarts.init(document.getElementById('pieChart')!);
+this.foodChart = echarts.init(document.getElementById('foodChart')!);
+this.lineChart = echarts.init(document.getElementById('lineChart')!);
 
-      series: [{
-        data: [20,35,15,40,30],
-        type: 'line',
-        smooth: true,
+}
 
-        areaStyle:{
-          color: new echarts.graphic.LinearGradient(
-            0,0,0,1,
-            [
-              {offset:0,color:'#6a11cb'},
-              {offset:1,color:'#2575fc'}
-            ]
-          )
-        }
-      }]
-    });
 
-  }
+
+/* LOAD DATA */
+
+loadAnalytics(){
+
+this.api.getDashboardAnalytics()
+.subscribe((res:any)=>{
+
+this.stats = res.summary;
+
+this.updateCharts(res);
+
+});
+
+}
+
+
+
+/* UPDATE CHARTS */
+
+updateCharts(res:any){
+
+this.updatePieChart(res.summary);
+this.updateFoodChart(res.foodDistribution);
+this.updateLineChart(res.detectionTrend);
+
+}
+
+
+
+/* PIE */
+
+updatePieChart(data:any){
+
+this.pieChart.setOption({
+
+tooltip:{trigger:'item'},
+
+series:[{
+type:'pie',
+radius:'65%',
+
+data:[
+{value:data.goodFood,name:'Good Food',itemStyle:{color:'#22c55e'}},
+{value:data.badFood,name:'Bad Food',itemStyle:{color:'#ef4444'}}
+]
+
+}]
+
+});
+
+}
+
+
+
+/* FOOD DISTRIBUTION */
+
+updateFoodChart(data:any){
+
+this.foodChart.setOption({
+
+tooltip:{trigger:'axis'},
+
+legend:{
+data:['Good Food','Bad Food']
+},
+
+xAxis:{
+type:'category',
+data:data.map((x:any)=>x._id)
+},
+
+yAxis:{
+type:'value'
+},
+
+series:[
+
+{
+name:'Good Food',
+type:'bar',
+stack:'total',
+data:data.map((x:any)=>x.good),
+itemStyle:{color:'#22c55e'}
+},
+
+{
+name:'Bad Food',
+type:'bar',
+stack:'total',
+data:data.map((x:any)=>x.bad),
+itemStyle:{color:'#ef4444'}
+}
+
+]
+
+});
+
+}
+
+
+
+/* TREND */
+
+updateLineChart(data:any){
+
+this.lineChart.setOption({
+
+xAxis:{
+type:'category',
+data:data.map((x:any)=>x._id)
+},
+
+yAxis:{type:'value'},
+
+series:[{
+type:'line',
+smooth:true,
+data:data.map((x:any)=>x.count),
+
+areaStyle:{
+color:new echarts.graphic.LinearGradient(
+0,0,0,1,
+[
+{offset:0,color:'#6366f1'},
+{offset:1,color:'#8b5cf6'}
+]
+)
+}
+
+}]
+
+});
+
+}
 
 }
