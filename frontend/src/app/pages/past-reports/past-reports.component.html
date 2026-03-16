@@ -6,65 +6,52 @@
 
     <app-header></app-header>
 
-    <div class="content-area">
+   <div class="content-area">
 
-      <!-- PAGE HEADER -->
-      <div class="page-header">
+<h2>Past Inspection Reports</h2>
 
-        <h2>Past Inspection Reports</h2>
+<div class="report-grid">
 
-        <div class="filter-section">
+<mat-card class="report-card" *ngFor="let session of filteredSessions">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Filter by Date</mat-label>
-            <input matInput [matDatepicker]="picker"
-                   (dateChange)="filterByDate($event)">
-            <mat-datepicker-toggle matSuffix
-                                   [for]="picker">
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+<div class="session-header">
 
-        </div>
+<div>Session #{{session.id}}</div>
 
-      </div>
+<span class="session-date">
+{{session.session.date}}
+</span>
+
+</div>
+
+<p><b>Total Foods:</b> {{session.food_inspection.total_count}}</p>
+
+<p><b>Food Name:</b> {{session.food_inspection.name}}</p>
+
+<p>
+<b>Duration:</b>
+{{session.session.total_time_seconds}} sec
+</p>
+
+<button
+mat-raised-button
+color="primary"
+(click)="toggleSession(session)"
+>
+View Full Analysis
+</button>
 
 
-      <!-- SESSION CARDS -->
-      <div class="report-grid">
+<app-session-analysis
+*ngIf="session.showAnalysis"
+[session]="session">
+</app-session-analysis>
 
-        <mat-card class="report-card"
-                  *ngFor="let session of filteredSessions">
+</mat-card>
 
-          <div class="session-header">
+</div>
 
-            <h3>Session #{{session.id}}</h3>
-
-            <span class="session-date">
-              {{session.date}}
-            </span>
-
-          </div>
-
-          <p><strong>Total Foods:</strong> {{session.totalFoods}}</p>
-
-          <p><strong>Categories:</strong> {{session.categories.join(', ')}}</p>
-
-          <p><strong>Duration:</strong> {{session.duration}}</p>
-
-          <button mat-raised-button
-                  color="primary"
-                  [routerLink]="['/session-analysis', session.id]">
-
-            View Full Analysis
-
-          </button>
-
-        </mat-card>
-
-      </div>
-
-    </div>
+</div>
 
   </div>
 

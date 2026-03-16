@@ -1,0 +1,130 @@
+<div class="analysis-container">
+
+<!-- SUMMARY CARDS -->
+
+<div class="summary-grid">
+
+<div class="summary-card">
+<h4>Total Foods</h4>
+<h2>{{session.food_inspection.total_count}}</h2>
+</div>
+
+<div class="summary-card good">
+<h4>Good Food</h4>
+<h2>{{session.food_inspection.good_count}}</h2>
+</div>
+
+<div class="summary-card bad">
+<h4>Bad Food</h4>
+<h2>{{session.food_inspection.bad_count}}</h2>
+</div>
+
+<div class="summary-card">
+<h4>Food Name</h4>
+<h2>{{session.food_inspection.name}}</h2>
+</div>
+
+</div>
+
+
+<!-- CHARTS -->
+
+<div class="chart-grid">
+
+<div class="chart-box">
+<h3>Good vs Bad Detection</h3>
+<div id="foodChart{{session.id}}" class="chart"></div>
+</div>
+
+<div class="chart-box">
+<h3>Confidence Distribution</h3>
+<div id="confidenceChart{{session.id}}" class="chart"></div>
+</div>
+
+</div>
+
+
+<div class="chart-box full">
+
+<h3>Detection Timeline</h3>
+
+<div id="timelineChart{{session.id}}" class="chart"></div>
+
+</div>
+
+
+<!-- DETAILS -->
+
+<div class="detail-grid">
+
+<div class="detail-box">
+
+<h3>Session Timing Details</h3>
+
+<div class="row">
+<span>Date</span>
+<span>{{session.session.date}}</span>
+</div>
+
+<div class="row">
+<span>Start Time</span>
+<span>{{session.session.start_time}}</span>
+</div>
+
+<div class="row">
+<span>End Time</span>
+<span>{{session.session.end_time}}</span>
+</div>
+
+<div class="row">
+<span>Total Time</span>
+<span>{{session.session.total_time_seconds}} sec</span>
+</div>
+
+<div class="row">
+<span>Status</span>
+<span class="status">{{session.session.status}}</span>
+</div>
+
+</div>
+
+
+<div class="detail-box">
+
+<h3>Food Inspection Details</h3>
+
+<div class="row">
+<span>Food Name</span>
+<span>{{session.food_inspection.name}}</span>
+</div>
+
+<div class="row">
+<span>Category</span>
+<span>{{session.food_inspection.category}}</span>
+</div>
+
+<div class="row">
+<span>Total Count</span>
+<span>{{session.food_inspection.total_count}}</span>
+</div>
+
+<div class="row good">
+<span>Good Food</span>
+<span>{{session.food_inspection.good_count}}</span>
+</div>
+
+<div class="row bad">
+<span>Bad Food</span>
+<span>{{session.food_inspection.bad_count}}</span>
+</div>
+
+<div class="row">
+<span>Detected At</span>
+<span>{{session.food_inspection.detected_at}}</span>
+</div>
+
+</div>
+
+</div>
+
+</div>

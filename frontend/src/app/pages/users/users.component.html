@@ -1,0 +1,106 @@
+<div class="dashboard-container">
+
+<app-sidebar></app-sidebar>
+
+<div class="main-content">
+
+<app-header></app-header>
+
+<div class="content-area">
+
+<h2>User Management</h2>
+
+<!-- ADD USER -->
+
+<mat-card class="add-user-card">
+
+<div class="form-grid">
+
+<mat-form-field appearance="outline">
+<mat-label>Username</mat-label>
+<input matInput [(ngModel)]="username">
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+<mat-label>Email</mat-label>
+<input matInput [(ngModel)]="email">
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+<mat-label>Password</mat-label>
+<input matInput type="password" [(ngModel)]="password">
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="addUser()">
+Add User
+</button>
+
+</div>
+
+</mat-card>
+
+
+<!-- USER TABLE -->
+
+<mat-card class="table-card">
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+<!-- USERNAME -->
+
+<ng-container matColumnDef="username">
+<th mat-header-cell *matHeaderCellDef> Username </th>
+<td mat-cell *matCellDef="let element">
+{{element.username}}
+</td>
+</ng-container>
+
+<!-- EMAIL -->
+
+<ng-container matColumnDef="email">
+<th mat-header-cell *matHeaderCellDef> Email </th>
+<td mat-cell *matCellDef="let element">
+{{element.email}}
+</td>
+</ng-container>
+
+<!-- PASSWORD -->
+
+
+<ng-container matColumnDef="date">
+<th mat-header-cell *matHeaderCellDef> date</th>
+<td mat-cell *matCellDef="let element">
+{{element.date | date:'medium'}}
+</td>
+</ng-container>
+<!-- ACTION -->
+
+<ng-container matColumnDef="action">
+<th mat-header-cell *matHeaderCellDef> Action </th>
+<td mat-cell *matCellDef="let element; let i=index">
+
+<button mat-button color="warn" (click)="deleteUser(i)">
+Delete
+</button>
+
+</td>
+</ng-container>
+
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator
+[pageSize]="20"
+[pageSizeOptions]="[20,40,50]">
+</mat-paginator>
+
+</mat-card>
+
+</div>
+
+</div>
+
+</div>

@@ -14,6 +14,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [],
@@ -42,8 +44,12 @@ MatFormFieldModule,
  MatDatepickerModule,
   MatNativeDateModule,
   MatFormFieldModule,
-  MatInputModule
-
+  MatInputModule,
+FormsModule,
+MatCardModule,
+MatButtonModule,
+MatFormFieldModule,
+MatInputModule
   ]
 
 })
