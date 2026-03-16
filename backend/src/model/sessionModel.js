@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const sessionSchema = new mongoose.Schema({
-  
+
   session: {
-    date: String,
+    date: { type: Date, default: Date.now },
     start_time: String,
     end_time: String,
     total_time_seconds: Number,
@@ -11,15 +11,16 @@ const sessionSchema = new mongoose.Schema({
   },
 
   food_inspection: {
-    "category":String,
-    "name": String,
-    "total_count": Number,
-    "good_count": Number,
-    "bad_count": Number,
-    "avg_confidence_good": Number,
-    "avg_confidence_bad": Number,
-    "detected_at":String
+    category: String,
+    name: String,
+    total_count: Number,
+    good_count: Number,
+    bad_count: Number,
+    avg_confidence_good: Number,
+    avg_confidence_bad: Number,
+    detected_at: String
   }
+
 });
-const sessionSchemaModel= mongoose.model("Session", sessionSchema);
-module.exports =sessionSchemaModel
+
+module.exports = mongoose.model("Session", sessionSchema);

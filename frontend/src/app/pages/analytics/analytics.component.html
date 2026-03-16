@@ -1,101 +1,55 @@
 <div class="dashboard-container">
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <app-sidebar></app-sidebar>
-  </div>
+  <app-sidebar></app-sidebar>
 
-  <!-- Main Content -->
   <div class="main-content">
 
-    <!-- Header -->
     <app-header></app-header>
 
-    <!-- Dashboard Content -->
     <div class="content-area">
 
-      <!-- STAT CARDS -->
-      <div class="row g-4">
+      <div class="stats-row">
 
-        <div class="col-lg-3 col-md-6">
-          <mat-card class="stat-card total">
-            <div class="card-content">
-              <div>
-                <h6>Total Sessions</h6>
-                <h2>{{stats.totalSessions}}</h2>
-              </div>
-              <div class="card-icon">📊</div>
-            </div>
-          </mat-card>
+        <div class="stat-card">
+          <h5>Total Sessions</h5>
+          <h2>{{stats.totalSessions}}</h2>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-          <mat-card class="stat-card food">
-            <div class="card-content">
-              <div>
-                <h6>Total Food</h6>
-                <h2>{{stats.totalFood}}</h2>
-              </div>
-              <div class="card-icon">🍔</div>
-            </div>
-          </mat-card>
+        <div class="stat-card">
+          <h5>Total Food</h5>
+          <h2>{{stats.totalFood}}</h2>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-          <mat-card class="stat-card good">
-            <div class="card-content">
-              <div>
-                <h6>Good Food</h6>
-                <h2>{{stats.goodFood}}</h2>
-              </div>
-              <div class="card-icon">✅</div>
-            </div>
-          </mat-card>
+        <div class="stat-card good">
+          <h5>Good Food</h5>
+          <h2>{{stats.goodFood}}</h2>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-          <mat-card class="stat-card bad">
-            <div class="card-content">
-              <div>
-                <h6>Bad Food</h6>
-                <h2>{{stats.badFood}}</h2>
-              </div>
-              <div class="card-icon">❌</div>
-            </div>
-          </mat-card>
+        <div class="stat-card bad">
+          <h5>Bad Food</h5>
+          <h2>{{stats.badFood}}</h2>
         </div>
 
       </div>
 
 
-      <!-- CHARTS -->
-      <div class="row g-4 mt-3">
+      <div class="charts-grid">
 
-        <div class="col-lg-6">
-          <mat-card class="chart-card">
-            <h5>Good vs Bad Food</h5>
-            <div id="pieChart" class="chart"></div>
-          </mat-card>
+        <div class="chart-card">
+          <h4>Good vs Bad Food</h4>
+          <div id="pieChart" class="chart"></div>
         </div>
 
-        <div class="col-lg-6">
-          <mat-card class="chart-card">
-            <h5>Food Category Distribution</h5>
-            <div id="barChart" class="chart"></div>
-          </mat-card>
+        <div class="chart-card">
+          <h4>Food Distribution</h4>
+          <div id="foodChart" class="chart"></div>
         </div>
 
-      </div>
-
-
-      <!-- LINE CHART -->
-      <div class="row g-4 mt-3">
-        <div class="col-12">
-          <mat-card class="chart-card">
-            <h5>Food Detection Trend</h5>
-            <div id="lineChart" class="chart"></div>
-          </mat-card>
+        <div class="chart-card full">
+          <h4>Food Detection Trend</h4>
+          <div id="lineChart" class="chart"></div>
         </div>
+
       </div>
 
     </div>
