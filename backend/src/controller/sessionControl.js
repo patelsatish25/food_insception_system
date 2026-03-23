@@ -31,28 +31,25 @@ const getAllFoods = async (req, res) => {
             {
                 $project: {
 
-                    _id: 0,
+                    session: "$session._id" ,
 
                     food: "$food_inspection.name",
 
                     category: "$food_inspection.category",
-
+                    starttime: "$session.start_time",
+                    endtime: "$session.end_time",
+                    date: "$session.date",
                     good: "$food_inspection.good_count",
-
+                    
                     bad: "$food_inspection.bad_count",
-
+                    status:"$session.status",
                     confidence: "$food_inspection.avg_confidence_good",
 
-                    status: {
-                        $cond: [
-                            { $gt: ["$food_inspection.bad_count", 0] },
-                            "Risk",
-                            "Good"
-                        ]
-                    }
+                  
 
                 }
-            }
+              
+            },  { $sort: { date: -1 } }
         ]);
 
         res.json({

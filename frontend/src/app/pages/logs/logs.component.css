@@ -1,0 +1,54 @@
+.page-header{
+margin-bottom:20px;
+}
+
+.table-card{
+padding:0;
+overflow:hidden;
+}
+
+.table-wrapper{
+max-height:500px;
+overflow:auto;
+}
+
+table{
+width:100%;
+}
+
+th{
+background:linear-gradient(90deg,#ff7a18,#ffb347);
+color:rgb(0, 0, 0);
+font-weight:600;
+}
+
+td{
+font-size:14px;
+}
+
+/* LEVEL COLORS */
+
+.info{
+color:#2563eb;
+font-weight:600;
+}
+
+.warn{
+color:#f59e0b;
+font-weight:600;
+}
+
+.error{
+color:#ef4444;
+font-weight:600;
+}
+
+  .main-content{
+  margin-left: 240px;   /* space for sidebar */
+  margin-top: 60px;     /* space for topbar */
+
+  padding: 20px;
+  background: #f4f6fb;
+
+  min-height: 100vh;
+}

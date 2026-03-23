@@ -16,21 +16,21 @@
 
 <div class="session-header">
 
-<div>Session #{{session.id}}</div>
+<div>Session #{{session._id}}</div>
 
 <span class="session-date">
-{{session.session.date}}
+{{session.date}}
 </span>
 
 </div>
 
-<p><b>Total Foods:</b> {{session.food_inspection.total_count}}</p>
+<p><b>Total Foods:</b> {{session.bad+session.good}}</p>
 
-<p><b>Food Name:</b> {{session.food_inspection.name}}</p>
+<p><b>Food Name:</b> {{session.food}}</p>
 
 <p>
 <b>Duration:</b>
-{{session.session.total_time_seconds}} sec
+{{session.starttime}} - {{session.endtime}}
 </p>
 
 <button
