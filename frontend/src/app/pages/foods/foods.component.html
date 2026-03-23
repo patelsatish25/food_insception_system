@@ -8,85 +8,204 @@
 
     <app-header></app-header>
 
-    <div class="content-area">
+    <div class="content-area" style="padding-top: 70px;">
 
-      <!-- Page Header -->
-      <div class="page-header">
-        <h2>Food Detection</h2>
+      <div class="search-section">
 
+        <!-- Text Search -->
         <div class="search-box">
           <mat-icon>search</mat-icon>
           <input matInput (keyup)="applyFilter($event)" placeholder="Search food...">
         </div>
+
+        <!-- Date From -->
+        <mat-form-field appearance="outline">
+          <mat-label>From</mat-label>
+
+          <input matInput
+          [matDatepicker]="picker1"
+          [(ngModel)]="startDate"
+          (dateChange)="applyDateFilter()">
+
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+
+        </mat-form-field>
+
+        <!-- Date To -->
+        <mat-form-field appearance="outline">
+
+          <mat-label>To</mat-label>
+
+          <input matInput
+          [matDatepicker]="picker2"
+          [(ngModel)]="endDate"
+          (dateChange)="applyDateFilter()">
+
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+
+        </mat-form-field>
+
       </div>
 
-      <!-- Table Card -->
+      <!-- TABLE CARD -->
+
       <mat-card class="table-card">
 
         <table mat-table [dataSource]="dataSource" matSort class="modern-table">
 
-          <!-- Food -->
-          <ng-container matColumnDef="name">
+          <!-- SESSION NUMBER -->
+
+          <ng-container matColumnDef="no">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Session No</th>
+
+            <td mat-cell *matCellDef="let element; let i = index">
+
+              {{getGlobalIndex(i)}}
+
+            </td>
+
+          </ng-container>
+
+          <!-- FOOD -->
+
+          <ng-container matColumnDef="food">
+
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Food</th>
+
             <td mat-cell *matCellDef="let element">
-              <div class="food-name">
-                🍎 {{element.name}}
-              </div>
+
+              🍎 {{element.food}}
+
             </td>
+
           </ng-container>
 
-          <!-- Category -->
+          <!-- DATE -->
+
+          <ng-container matColumnDef="date">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+
+            <td mat-cell *matCellDef="let element">
+
+              🕒 {{ element.date | date:'yyyy-MM-dd' }}
+
+            </td>
+
+          </ng-container>
+
+          <!-- START TIME -->
+
+          <ng-container matColumnDef="starttime">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time</th>
+
+            <td mat-cell *matCellDef="let element">
+
+              ⏰ {{ element.starttime }}
+
+            </td>
+
+          </ng-container>
+
+          <!-- END TIME -->
+
+          <ng-container matColumnDef="endtime">
+
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>End Time</th>
+
+            <td mat-cell *matCellDef="let element">
+
+              ⏰ {{ element.endtime }}
+
+            </td>
+
+          </ng-container>
+
+          <!-- CATEGORY -->
+
           <ng-container matColumnDef="category">
+
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+
             <td mat-cell *matCellDef="let element">
-              <span class="category">{{element.category}}</span>
+
+              {{element.category}}
+
             </td>
+
           </ng-container>
 
-          <!-- Good -->
+          <!-- GOOD -->
+
           <ng-container matColumnDef="good">
+
             <th mat-header-cell *matHeaderCellDef>Good</th>
+
             <td mat-cell *matCellDef="let element">
-              <span class="good-count">{{element.good}}</span>
+
+              {{element.good}}
+
             </td>
+
           </ng-container>
 
-          <!-- Bad -->
+          <!-- BAD -->
+
           <ng-container matColumnDef="bad">
+
             <th mat-header-cell *matHeaderCellDef>Bad</th>
+
             <td mat-cell *matCellDef="let element">
-              <span class="bad-count">{{element.bad}}</span>
+
+              {{element.bad}}
+
             </td>
+
           </ng-container>
 
-          <!-- Confidence -->
+          <!-- CONFIDENCE -->
+
           <ng-container matColumnDef="confidence">
+
             <th mat-header-cell *matHeaderCellDef>Confidence</th>
+
             <td mat-cell *matCellDef="let element">
+
               {{element.confidence}}
+
             </td>
+
           </ng-container>
 
-          <!-- Status -->
+          <!-- STATUS -->
+
           <ng-container matColumnDef="status">
+
             <th mat-header-cell *matHeaderCellDef>Status</th>
+
             <td mat-cell *matCellDef="let element">
 
-              <span
-                class="status"
-                [ngClass]="element.bad > 0 ? 'risk' : 'good'">
-
-                {{element.bad > 0 ? 'Risk' : 'Good'}}
-
-              </span>
+              {{element.status}}
 
             </td>
+
           </ng-container>
+
+          <!-- HEADER -->
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+          <!-- ROW -->
+
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
         </table>
+
+        <!-- PAGINATOR -->
 
         <mat-paginator [pageSize]="5"></mat-paginator>
 

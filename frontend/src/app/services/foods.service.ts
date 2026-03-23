@@ -10,6 +10,10 @@ export class FoodsService {
 return this.http.get("http://localhost:3000/api/food/analytics");
 
 }
+
+  getFoods(){
+    return this.http.get("http://localhost:3000/api/food/allfoods");
+  }
 }
 
 

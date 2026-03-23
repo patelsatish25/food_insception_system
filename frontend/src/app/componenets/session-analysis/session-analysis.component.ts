@@ -10,13 +10,16 @@ export class SessionAnalysisComponent implements AfterViewInit{
 
 @Input() session:any;
 
+ngOnInit(){
+console.log("Session data in analysis component:", this.session);
+}
 ngAfterViewInit(){
-
+console.log(this.session)
 setTimeout(()=>{
 
 this.createFoodChart();
 this.createConfidenceChart();
-this.createTimelineChart();
+
 
 },100);
 
@@ -25,7 +28,7 @@ this.createTimelineChart();
 createFoodChart(){
 
 const chart = echarts.init(
-document.getElementById('foodChart'+this.session.id)!
+document.getElementById('foodChart'+this.session._id)!
 );
 
 chart.setOption({
@@ -38,12 +41,14 @@ type:'pie',
 radius:['45%','70%'],
 data:[
 {
-value:this.session.food_inspection.good_count,
-name:'Good Food'
+value:this.session.good,
+name:'Good Food',
+itemStyle:{color:'#27ae60'}
 },
 {
-value:this.session.food_inspection.bad_count,
-name:'Bad Food'
+value:this.session.bad,
+name:'Bad Food',
+itemStyle:{color:'#e74c3c'}
 }
 ]
 }
@@ -56,7 +61,7 @@ name:'Bad Food'
 createConfidenceChart(){
 
 const chart = echarts.init(
-document.getElementById('confidenceChart'+this.session.id)!
+document.getElementById('confidenceChart'+this.session._id)!
 );
 
 chart.setOption({
@@ -70,56 +75,29 @@ data:['Good Confidence','Bad Confidence']
 
 yAxis:{
 type:'value',
-max:1
+max:100
 },
 
 series:[
 {
 type:'bar',
 data:[
-this.session.food_inspection.avg_confidence_good,
-this.session.food_inspection.avg_confidence_bad
+{value:this.session.confidence*100,itemStyle:{color:'#27ae60'}},
+{value:(1 - this.session.confidence)*100,itemStyle:{color:'#e74c3c'}}
 ],
-itemStyle:{
-color:'#6c5ce7'
+label:{
+show:true,
+position:'top',
+formatter:(params:any)=>{
+return Math.round(params.value)+'%';
 }
 }
-]
-
-});
-
-}
-
-createTimelineChart(){
-
-const chart = echarts.init(
-document.getElementById('timelineChart'+this.session.id)!
-);
-
-chart.setOption({
-
-tooltip:{},
-
-xAxis:{
-type:'category',
-data:['0s','2s','4s','6s','8s']
-},
-
-yAxis:{
-type:'value'
-},
-
-series:[
-{
-type:'line',
-smooth:true,
-data:[5,12,18,10,20],
-areaStyle:{}
 }
 ]
 
 });
 
 }
+
 
 }

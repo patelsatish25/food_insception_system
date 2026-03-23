@@ -1,44 +1,131 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { FoodsService } from 'src/app/services/foods.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
-selector: 'app-foods',
-templateUrl: './foods.component.html',
-styleUrls: ['./foods.component.css']
+  selector: 'app-foods',
+  templateUrl: './foods.component.html',
+  styleUrls: ['./foods.component.css']
 })
-export class FoodsComponent implements AfterViewInit {
+export class FoodsComponent implements AfterViewInit, OnInit {
 
-displayedColumns: string[] = [
-'name',
-'category',
-'good',
-'bad',
-'confidence',
-'status'
-];
+  startDate!: Date | null;
+  endDate!: Date | null;
+  filterValue: string = '';
 
-dataSource = new MatTableDataSource([
-{ name:'Apple', category:'Fruit', good:10, bad:1, confidence:0.92 },
-{ name:'Burger', category:'Fast Food', good:3, bad:4, confidence:0.65 },
-{ name:'Carrot', category:'Vegetable', good:8, bad:0, confidence:0.95 },
-{ name:'Pizza', category:'Fast Food', good:5, bad:2, confidence:0.80 },
-{ name:'Tomato', category:'Vegetable', good:7, bad:1, confidence:0.90 },
-{ name:'Banana', category:'Fruit', good:12, bad:0, confidence:0.97 }
-]);
+  displayedColumns: string[] = [
+    'no',
+    'food',
+    'date',
+    'starttime',
+    'endtime',
+    'category',
+    'good',
+    'bad',
+    'confidence',
+    'status'
+  ];
 
-@ViewChild(MatPaginator) paginator!: MatPaginator;
-@ViewChild(MatSort) sort!: MatSort;
+  dataSource = new MatTableDataSource<any>();
 
-ngAfterViewInit(){
-this.dataSource.paginator = this.paginator;
-this.dataSource.sort = this.sort;
-}
+  constructor(private api: FoodsService,private socket: SocketService) {}
 
-applyFilter(event: Event){
-const filterValue = (event.target as HTMLInputElement).value;
-this.dataSource.filter = filterValue.trim().toLowerCase();
-}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngOnInit() {
+
+    this.loadFoods();
+
+    /* SOCKET LISTENER */
+
+    this.socket.listen("new-session")
+      .subscribe(() => {
+        console.log("New food record detected, reloading foods...");
+        this.loadFoods();
+      });
+
+  }
+
+  loadFoods() {
+    this.api.getFoods().subscribe((data: any) => {
+
+      this.dataSource.data = data.foods;
+
+      /* FILTER LOGIC */
+
+      this.dataSource.filterPredicate = (data: any, filter: string) => {
+
+        // `filter` is composed as: "<searchText>|||<startIso>|||<endIso>"
+        const [searchTextPart] = filter.split('|||');
+        const searchText = (searchTextPart || '').trim().toLowerCase();
+
+        const recordDate = new Date(data.date);
+
+        const start = this.startDate ? new Date(this.startDate) : null;
+        const end = this.endDate ? new Date(this.endDate) : null;
+
+        if (start) {
+          start.setHours(0, 0, 0, 0);
+        }
+
+        if (end) {
+          end.setHours(23, 59, 59, 999);
+        }
+
+        const matchText =
+          data.food.toLowerCase().includes(searchText) ||
+          data.category.toLowerCase().includes(searchText) ||
+          data.status.toLowerCase().includes(searchText);
+
+        const matchDate =
+          (!start || recordDate >= start) &&
+          (!end || recordDate <= end);
+
+        return matchText && matchDate;
+      };
+
+    });
+
+  }
+
+  ngAfterViewInit() {
+
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+  }
+
+  private refreshFilter(): void {
+    const startIso = this.startDate ? this.startDate.toISOString() : '';
+    const endIso = this.endDate ? this.endDate.toISOString() : '';
+
+    this.dataSource.filter = `${this.filterValue}|||${startIso}|||${endIso}`;
+  }
+
+  /* TEXT SEARCH */
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterValue = filterValue.trim().toLowerCase();
+    this.refreshFilter();
+  }
+
+  /* DATE RANGE FILTER */
+
+  applyDateFilter() {
+    this.refreshFilter();
+  }
+
+  /* SESSION NUMBER */
+
+  getGlobalIndex(localIndex: number): number {
+
+    return this.paginator.pageIndex * this.paginator.pageSize + localIndex + 1;
+
+  }
 
 }

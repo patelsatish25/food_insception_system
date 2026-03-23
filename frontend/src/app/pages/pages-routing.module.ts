@@ -8,6 +8,7 @@ import { AnalyticsComponent } from "./analytics/analytics.component";
 import { FoodsComponent } from "./foods/foods.component";
 import { PastReportsComponent } from "./past-reports/past-reports.component";
 import { UsersComponent } from "./users/users.component";
+import { LogsComponent } from "./logs/logs.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'analytics', component:AnalyticsComponent},
   {path:'foods', component:FoodsComponent},
   {path:'pastreports', component:PastReportsComponent},
+  {path:'logs', component:LogsComponent},
   {path:'users', component:UsersComponent}
 ];
 @NgModule({
