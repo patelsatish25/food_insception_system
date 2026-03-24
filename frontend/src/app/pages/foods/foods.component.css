@@ -103,7 +103,12 @@ background:#f8d7da;
 color:#721c24;
 }
 .main-content{
-  margin-left:240px;              /* sidebar width */
-  width:calc(100% - 240px);       /* remaining width */
-  min-height:100vh;
+margin-left:240px;
+padding-top:80px;
+padding-left:25px;
+padding-right:25px;
+background:#182749;
+min-height:100vh;
+width:calc(100% - 240px);
+box-sizing:border-box;
 }

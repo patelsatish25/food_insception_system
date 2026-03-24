@@ -1,0 +1,90 @@
+
+    <div class="dashboard-container">
+
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="main-content">
+     <app-header></app-header>
+    <div class="hardware-container">
+
+  <h2 class="title">⚙ Hardware Monitor</h2>
+
+  <!-- CPU / GPU ROW -->
+  <div class="top-grid">
+
+    <div class="card cpu">
+      <h3>CPU Temperature</h3>
+      <div class="value">{{cpuTemp}} °C</div>
+      <div class="progress">
+        <div class="bar" [style.width.%]="cpuTemp"></div>
+      </div>
+    </div>
+
+    <div class="card cpu-usage">
+      <h3>CPU Usage</h3>
+      <div class="value">{{cpuUsage}}%</div>
+      <div class="progress">
+        <div class="bar blue" [style.width.%]="cpuUsage"></div>
+      </div>
+    </div>
+
+    <div class="card gpu">
+      <h3>GPU Temperature</h3>
+      <div class="value">{{gpuTemp}} °C</div>
+    </div>
+
+  </div>
+
+
+  <!-- RAM / STORAGE -->
+  <div class="middle-grid">
+
+    <div class="card">
+      <h3>RAM Usage</h3>
+      <p>{{ramUsed}} GB used / {{ramTotal}} GB total</p>
+      <div class="progress">
+        <div class="bar green" [style.width.%]="ramPercent"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Storage</h3>
+      <p>{{diskUsed}} GB used / {{diskTotal}} GB total</p>
+      <div class="progress">
+        <div class="bar teal" [style.width.%]="diskPercent"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- STATUS ROW -->
+  <div class="status-grid">
+
+    <div class="status-card">
+      <h4>System Uptime</h4>
+      <p>{{systemUptime}}</p>
+    </div>
+
+    <div class="status-card">
+      <h4>Software Uptime</h4>
+      <p>{{softwareUptime}}</p>
+    </div>
+
+    <div class="status-card">
+      <h4>Internet</h4>
+      <p class="online">Connected</p>
+    </div>
+
+    <div class="status-card">
+      <h4>Network</h4>
+      <p>{{ipAddress}}</p>
+    </div>
+
+  </div>
+
+</div>
+  </div>
+    </div>
