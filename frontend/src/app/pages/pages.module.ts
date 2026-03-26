@@ -14,6 +14,7 @@ import { FoodsComponent } from './foods/foods.component';
 import { PastReportsComponent } from './past-reports/past-reports.component';
 import { UsersComponent } from './users/users.component';
 import { LogsComponent } from './logs/logs.component';
+import { HardwareMonitorComponent } from './hardware-monitor/hardware-monitor.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LogsComponent } from './logs/logs.component';
      FoodsComponent,
      PastReportsComponent,
      UsersComponent,
-     LogsComponent
+     LogsComponent,
+     HardwareMonitorComponent
   ],
   imports: [
     CommonModule,

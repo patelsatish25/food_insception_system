@@ -1,96 +1,170 @@
 <div class="dashboard-container">
 
-    <!-- Sidebar -->
-  
-    <app-sidebar></app-sidebar>
-  
-  
-    <!-- Main Content -->
-  
-    <div class="main-content">
-  
-      <!-- Topbar -->
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+
     <app-header></app-header>
-      
-  
-      <!-- Statistics Cards -->
-  
-      <div class="container mt-4">
-  
-        <div class="row">
-  
-          <div class="col-md-3 mb-4">
-            <div class="card dashboard-card shadow">
-              <h4>Total Inspections</h4>
-              <h2>120</h2>
-            </div>
-          </div>
-  
-          
-  
-          <div class="col-md-3 mb-4">
-            <div class="card dashboard-card shadow">
-              <h4>Passed</h4>
-              <h2>90</h2>
-            </div>
-          </div>
-  
-          <div class="col-md-3 mb-4">
-            <div class="card dashboard-card shadow">
-              <h4>Failed</h4>
-              <h2>15</h2>
-            </div>
-          </div>
-  
+
+    <div class="dashboard-page">
+
+      <!-- SESSION STATUS -->
+
+      <div class="running-screen">
+
+        <div class="live-indicator"></div>
+
+        <h1 *ngIf="sessionRunning">Session Running</h1>
+        <h1 *ngIf="!sessionRunning">Session Ended</h1>
+
+        <p>Start: {{session.start_time}}</p>
+
+        <p *ngIf="!sessionRunning">
+          End: {{session.end_time}}
+        </p>
+
+        <!-- TIMER -->
+
+        <div class="timer" *ngIf="sessionRunning">
+          00 : 12 : 35
         </div>
-  
-  
-        <!-- Inspection Table -->
-  
-        <div class="card shadow mt-4">
-  
-          <div class="card-header">
-            Recent Inspections
-          </div>
-  
-          <table class="table table-striped">
-  
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>food</th>
-                <th>Inspector</th>
-                <th>Status</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-  
-            <tbody>
-  
-              <tr>
-                <td>101</td>
-                <td>apple</td>
-                <td>Raj Patel</td>
-                <td><span class="badge bg-success">Passed</span></td>
-                <td>12 May</td>
-              </tr>
-  
-              <tr>
-                <td>102</td>
-                <td>orange</td>
-                <td>Neha Shah</td>
-                <td><span class="badge bg-danger">Failed</span></td>
-                <td>11 May</td>
-              </tr>
-  
-            </tbody>
-  
-          </table>
-  
+
+        <div class="timer" *ngIf="!sessionRunning">
+          {{session.total_time_seconds}} sec
         </div>
-  
+
+        <p *ngIf="sessionRunning">
+          AI Food Inspection Processing...
+        </p>
+
+
+        <!-- HARDWARE INFO (ONLY WHEN RUNNING) -->
+
+        <div *ngIf="sessionRunning">
+
+          <div class="system-summary">
+
+            <div>
+              <span>CPU</span>
+              <h3>27°C</h3>
+            </div>
+
+            <div>
+              <span>GPU</span>
+              <h3>54°C</h3>
+            </div>
+
+            <div>
+              <span>RAM</span>
+              <h3>9.4 GB</h3>
+            </div>
+
+          </div>
+
+          <button class="monitor-btn" routerLink="/hardware-monitor">
+            Open Hardware Monitor
+          </button>
+
+        </div>
+
       </div>
-  
+
+
+
+      <!-- LAST SESSION REPORT -->
+
+      <div class="report-section" [class.loading]="sessionRunning">
+
+        <h2 class="title">
+
+          Last Session Report
+
+          <span class="session-times">
+
+            Start: {{session.start_time}}
+
+            <span *ngIf="!sessionRunning">
+              | End: {{session.end_time}}
+            </span>
+
+          </span>
+
+        </h2>
+
+
+        <!-- INFO CARDS -->
+
+        <div class="card-grid">
+
+          <div class="card">
+
+            <h3>Session Info</h3>
+
+            <div *ngIf="sessionRunning" class="skeleton"></div>
+
+            <div *ngIf="!sessionRunning">
+
+              <p>Date: {{session.date}}</p>
+              <p>Start: {{session.start_time}}</p>
+              <p>End: {{session.end_time}}</p>
+              <p>Duration: {{session.total_time_seconds}} sec</p>
+
+            </div>
+
+          </div>
+
+
+          <div class="card">
+
+            <h3>Food Inspection</h3>
+
+            <div *ngIf="sessionRunning" class="skeleton"></div>
+
+            <div *ngIf="!sessionRunning">
+
+              <p>Name: {{food.name}}</p>
+              <p>Total: {{food.total_count}}</p>
+              <p class="good">Good: {{food.good_count}}</p>
+              <p class="bad">Bad: {{food.bad_count}}</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CHARTS -->
+
+        <div class="chart-grid">
+
+          <div class="chart-card">
+
+            <h3>Food Quality Distribution</h3>
+
+            <div *ngIf="sessionRunning" class="skeleton chart-skeleton"></div>
+
+            <div *ngIf="!sessionRunning" id="foodChart"></div>
+
+          </div>
+
+
+          <div class="chart-card">
+
+            <h3>AI Confidence</h3>
+
+            <div *ngIf="sessionRunning" class="skeleton chart-skeleton"></div>
+
+            <div *ngIf="!sessionRunning" id="confidenceChart"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-  
+
   </div>
+
+</div>
